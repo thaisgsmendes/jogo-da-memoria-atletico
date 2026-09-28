@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <link rel="stylesheet" href="./style.css" />
+
+  <title>Jogo da Memória Atlético Mineiro</title>
+</head>
+
+<body>
+
+  <main class="memory-game">
+
+    <!-- TÍTULO -->
+    <header class="header">
+      <h1>Jogo da Memória Atlético Mineiro</h1>
+    </header>
+
+
+    <!-- CRONÔMETRO -->
+    <div class="timer">
+      Tempo:
+      <span id="timer">00:00</span>
+    </div>
+
+
+    <!-- CARTAS -->
+
+    <div class="card" data-card="arana">
+
+      <img
+        class="card-front"
+        src="imagens/arana.webp"
+        alt="Arana"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="hulk">
+
+      <img
+        class="card-front"
+        src="imagens/hulk.webp"
+        alt="Hulk"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="paulinho">
+
+      <img
+        class="card-front"
+        src="imagens/paulinho.webp"
+        alt="Paulinho"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="vargas">
+
+      <img
+        class="card-front"
+        src="imagens/vargas.webp"
+        alt="Vargas"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="scarpa">
+
+      <img
+        class="card-front"
+        src="imagens/scarpa.webp"
+        alt="Scarpa"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="everson">
+
+      <img
+        class="card-front"
+        src="imagens/everson.webp"
+        alt="Everson"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <!-- SEGUNDA FILEIRA -->
+
+    <div class="card" data-card="arana">
+
+      <img
+        class="card-front"
+        src="imagens/arana.webp"
+        alt="Arana"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="hulk">
+
+      <img
+        class="card-front"
+        src="imagens/hulk.webp"
+        alt="Hulk"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="paulinho">
+
+      <img
+        class="card-front"
+        src="imagens/paulinho.webp"
+        alt="Paulinho"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="vargas">
+
+      <img
+        class="card-front"
+        src="imagens/vargas.webp"
+        alt="Vargas"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="scarpa">
+
+      <img
+        class="card-front"
+        src="imagens/scarpa.webp"
+        alt="Scarpa"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+
+    <div class="card" data-card="everson">
+
+      <img
+        class="card-front"
+        src="imagens/everson.webp"
+        alt="Everson"
+      />
+
+      <img
+        class="card-back"
+        src="imagens/cam450.png"
+        alt="Verso da carta"
+      />
+
+    </div>
+
+  </main>
+
+
+  <!-- =====================================
+       TELA DE VITÓRIA
+       ===================================== -->
+
+  <div
+    class="victory-overlay"
+    id="victoryOverlay"
+  >
+
+    <!-- CONFETES -->
+
+    <div
+      class="confetti-container"
+      id="confettiContainer"
+    ></div>
+
+
+    <!-- EFEITOS DE EXPLOSÃO -->
+
+    <div class="firework firework-one"></div>
+
+    <div class="firework firework-two"></div>
+
+    <div class="firework firework-three"></div>
+
+
+    <!-- MODAL -->
+
+    <div class="victory-modal">
+
+      <button
+        class="close-button"
+        id="closeButton"
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+
+
+      <div class="trophy">
+        🏆
+      </div>
+
+
+      <h2>Parabéns!</h2>
+
+
+      <p class="victory-message">
+        Você encontrou todos os pares!
+      </p>
+
+
+      <div class="final-time">
+
+        <span>Seu tempo</span>
+
+        <strong id="finalTime">
+          00:00
+        </strong>
+
+      </div>
+
+
+      <p class="congratulations">
+        Excelente memória! 🎉
+      </p>
+
+
+      <button
+        class="restart-button"
+        id="restartButton"
+      >
+        Jogar novamente
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script src="./script.js"></script>
+
+</body>
+
+</html>

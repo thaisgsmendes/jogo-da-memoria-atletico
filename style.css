@@ -1,0 +1,952 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+
+/* =========================
+   RESET
+   ========================= */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   PÁGINA
+   ========================= */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+
+body {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("imagens/estadio2940.jpeg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  overflow: hidden;
+}
+
+
+/* =========================
+   JOGO
+   ========================= */
+
+.memory-game {
+  width: 640px;
+  height: 500px;
+
+  margin: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  perspective: 1000px;
+}
+
+
+/* =========================
+   TÍTULO
+   ========================= */
+
+.header {
+  width: 100%;
+
+  font-family: "Anton", sans-serif;
+
+  color: black;
+
+  background-color: rgb(237, 237, 237);
+
+  border-radius: 10px;
+
+  text-align: center;
+
+  padding: 12px 10px;
+
+  margin-bottom: 5px;
+}
+
+
+.header h1 {
+  font-size: 30px;
+}
+
+
+/* =========================
+   CRONÔMETRO
+   ========================= */
+
+.timer {
+  width: 100%;
+
+  text-align: center;
+
+  font-family: "Anton", sans-serif;
+
+  font-size: 22px;
+
+  color: white;
+
+  background-color: rgba(0, 0, 0, 0.75);
+
+  border-radius: 8px;
+
+  padding: 5px;
+
+  margin-bottom: 5px;
+}
+
+
+#timer {
+  font-size: 25px;
+
+  font-weight: bold;
+}
+
+
+/* =========================
+   CARTAS
+   ========================= */
+
+.card {
+  height: calc(29.333% - 6px);
+
+  width: calc(25% - 10px);
+
+  margin: 5px;
+
+  position: relative;
+
+  box-shadow:
+    1px 1px 1px rgba(0, 0, 0, 0.3);
+
+  cursor: pointer;
+
+  transform: scale(1);
+
+  transform-style: preserve-3d;
+
+  transition: transform 0.9s;
+}
+
+
+/* =========================
+   EFEITO AO CLICAR
+   ========================= */
+
+.card:active {
+
+  transform: scale(0.97);
+
+  transition: transform 0.2s;
+}
+
+
+/* =========================
+   FRENTE E VERSO
+   ========================= */
+
+.card-front,
+.card-back {
+
+  width: 100%;
+  height: 100%;
+
+  padding: 20px;
+
+  position: absolute;
+
+  background-image: url("imagens/arena dentro.jpg");
+
+  background-size: cover;
+
+  background-repeat: no-repeat;
+
+  border-radius: 5px;
+
+  backface-visibility: hidden;
+
+  border: outset;
+}
+
+
+/* =========================
+   VERSO
+   ========================= */
+
+.card-back {
+
+  filter: sepia();
+}
+
+
+.card-back:hover {
+
+  transform: scale(1.03);
+
+  transition: 100ms ease-in-out 0s;
+
+  filter: grayscale(0.5);
+}
+
+
+/* =========================
+   FRENTE
+   ========================= */
+
+.card-front {
+
+  transform: rotateY(180deg);
+}
+
+
+/* =========================
+   CARTA VIRADA
+   ========================= */
+
+.card.flip {
+
+  transform: rotateY(180deg);
+}
+
+
+/* =========================
+   GRAYSCALE
+   ========================= */
+
+.grayscale {
+
+  filter: grayscale(1);
+}
+
+
+/* ==================================================
+   TELA DE VITÓRIA
+   ================================================== */
+
+.victory-overlay {
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.72);
+
+  backdrop-filter: blur(5px);
+
+  z-index: 1000;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
+}
+
+
+.victory-overlay.show {
+
+  opacity: 1;
+
+  visibility: visible;
+}
+
+
+/* =========================
+   MODAL
+   ========================= */
+
+.victory-modal {
+
+  position: relative;
+
+  width: 420px;
+
+  max-width: 90%;
+
+  padding: 35px 30px 30px;
+
+  text-align: center;
+
+  background: linear-gradient(
+    145deg,
+    #ffffff,
+    #f1f1f1
+  );
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.5);
+
+  border: 3px solid rgba(255, 255, 255, 0.9);
+
+  transform: scale(0.7);
+
+  transition: transform 0.45s ease;
+
+  z-index: 1002;
+}
+
+
+.victory-overlay.show .victory-modal {
+
+  transform: scale(1);
+}
+
+
+/* =========================
+   BOTÃO FECHAR
+   ========================= */
+
+.close-button {
+
+  position: absolute;
+
+  top: 12px;
+  right: 15px;
+
+  width: 34px;
+  height: 34px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #eeeeee;
+
+  color: #333;
+
+  font-size: 25px;
+
+  line-height: 30px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.close-button:hover {
+
+  background: #222;
+
+  color: white;
+
+  transform: rotate(90deg);
+}
+
+
+/* =========================
+   TROFÉU
+   ========================= */
+
+.trophy {
+
+  font-size: 65px;
+
+  line-height: 1;
+
+  margin-bottom: 12px;
+
+  animation: trophyBounce 1.5s infinite;
+}
+
+
+@keyframes trophyBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+
+/* =========================
+   TÍTULO DA VITÓRIA
+   ========================= */
+
+.victory-modal h2 {
+
+  font-family: "Anton", sans-serif;
+
+  font-size: 42px;
+
+  letter-spacing: 1px;
+
+  color: #111;
+
+  margin-bottom: 5px;
+}
+
+
+.victory-message {
+
+  font-size: 17px;
+
+  color: #555;
+
+  margin-bottom: 22px;
+}
+
+
+/* =========================
+   TEMPO FINAL
+   ========================= */
+
+.final-time {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  padding: 15px;
+
+  margin-bottom: 18px;
+
+  background: #171717;
+
+  border-radius: 14px;
+
+  color: white;
+}
+
+
+.final-time span {
+
+  font-size: 14px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+
+  opacity: 0.8;
+
+  margin-bottom: 4px;
+}
+
+
+.final-time strong {
+
+  font-family: "Anton", sans-serif;
+
+  font-size: 38px;
+
+  letter-spacing: 2px;
+
+  color: #ffffff;
+}
+
+
+/* =========================
+   FRASE FINAL
+   ========================= */
+
+.congratulations {
+
+  font-size: 15px;
+
+  color: #555;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================
+   BOTÃO JOGAR NOVAMENTE
+   ========================= */
+
+.restart-button {
+
+  width: 100%;
+
+  padding: 13px 20px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #111;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+
+.restart-button:hover {
+
+  background: #333;
+
+  transform: translateY(-2px);
+}
+
+
+.restart-button:active {
+
+  transform: translateY(0);
+}
+
+
+/* ==================================================
+   CONFETES
+   ================================================== */
+
+.confetti-container {
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  z-index: 1001;
+}
+
+
+.confetti {
+
+  position: absolute;
+
+  top: -20px;
+
+  width: 9px;
+  height: 15px;
+
+  opacity: 0;
+
+  animation:
+    confettiFall 3.5s linear forwards;
+
+  border-radius: 2px;
+}
+
+
+@keyframes confettiFall {
+
+  0% {
+
+    transform:
+      translateY(-30px)
+      rotate(0deg);
+
+    opacity: 1;
+  }
+
+  100% {
+
+    transform:
+      translateY(110vh)
+      rotate(720deg);
+
+    opacity: 0;
+  }
+}
+
+
+/* ==================================================
+   EXPLOSÕES
+   ================================================== */
+
+.firework {
+
+  position: absolute;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  opacity: 0;
+
+  z-index: 1001;
+
+  pointer-events: none;
+}
+
+
+.firework-one {
+
+  top: 20%;
+  left: 18%;
+
+  animation: firework 1.5s ease-out infinite;
+}
+
+
+.firework-two {
+
+  top: 25%;
+  right: 18%;
+
+  animation:
+    firework 1.5s ease-out 0.4s infinite;
+}
+
+
+.firework-three {
+
+  bottom: 18%;
+  left: 50%;
+
+  animation:
+    firework 1.5s ease-out 0.8s infinite;
+}
+
+
+@keyframes firework {
+
+  0% {
+
+    opacity: 0;
+
+    box-shadow: none;
+
+    transform: scale(0);
+  }
+
+
+  20% {
+
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+
+  100% {
+
+    opacity: 0;
+
+    transform: scale(1);
+
+    box-shadow:
+      0 -70px 0 #ffd700,
+      50px -50px 0 #ff4d4d,
+      70px 0 0 #00cfff,
+      50px 50px 0 #7cff4d,
+      0 70px 0 #ff66cc,
+      -50px 50px 0 #ff9900,
+      -70px 0 0 #66a3ff,
+      -50px -50px 0 #ffffff;
+  }
+}
+
+
+/* ==================================================
+   TABLET
+   ================================================== */
+
+@media (max-width: 700px) {
+
+  body {
+
+    padding: 10px;
+
+    overflow: hidden;
+  }
+
+
+  .memory-game {
+
+    width: 100%;
+
+    max-width: 640px;
+
+    height: min(500px, 95vh);
+
+    margin: auto;
+  }
+
+
+  .header {
+
+    padding: 10px 5px;
+  }
+
+
+  .header h1 {
+
+    font-size: 26px;
+  }
+
+
+  .timer {
+
+    font-size: 19px;
+
+    padding: 5px;
+  }
+
+
+  #timer {
+
+    font-size: 22px;
+  }
+
+
+  .card {
+
+    width: calc(25% - 8px);
+
+    height: calc(29.333% - 5px);
+
+    margin: 4px;
+  }
+
+
+  .card-front,
+  .card-back {
+
+    padding: 10px;
+  }
+}
+
+
+/* ==================================================
+   CELULAR
+   ================================================== */
+
+@media (max-width: 480px) {
+
+  body {
+
+    padding: 8px;
+
+    overflow: hidden;
+  }
+
+
+  .memory-game {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    height: 90vh;
+
+    margin: auto;
+  }
+
+
+  .header {
+
+    padding: 8px 5px;
+
+    margin-bottom: 3px;
+  }
+
+
+  .header h1 {
+
+    font-size: 20px;
+
+    line-height: 1.2;
+  }
+
+
+  .timer {
+
+    font-size: 17px;
+
+    padding: 4px;
+
+    margin-bottom: 3px;
+  }
+
+
+  #timer {
+
+    font-size: 20px;
+  }
+
+
+  .card {
+
+    width: calc(25% - 6px);
+
+    height: calc(29.333% - 4px);
+
+    margin: 3px;
+  }
+
+
+  .card-front,
+  .card-back {
+
+    padding: 5px;
+
+    border-radius: 4px;
+  }
+
+
+  /* MODAL NO CELULAR */
+
+  .victory-modal {
+
+    width: calc(100% - 30px);
+
+    padding: 28px 20px 22px;
+
+    border-radius: 18px;
+  }
+
+
+  .trophy {
+
+    font-size: 55px;
+  }
+
+
+  .victory-modal h2 {
+
+    font-size: 34px;
+  }
+
+
+  .victory-message {
+
+    font-size: 15px;
+  }
+
+
+  .final-time strong {
+
+    font-size: 32px;
+  }
+
+
+  .firework-one {
+
+    left: 10%;
+  }
+
+
+  .firework-two {
+
+    right: 10%;
+  }
+}
+
+
+/* ==================================================
+   CELULAR PEQUENO
+   ================================================== */
+
+@media (max-width: 360px) {
+
+  body {
+
+    padding: 5px;
+  }
+
+
+  .memory-game {
+
+    width: 100%;
+
+    height: 88vh;
+  }
+
+
+  .header h1 {
+
+    font-size: 17px;
+  }
+
+
+  .timer {
+
+    font-size: 15px;
+  }
+
+
+  #timer {
+
+    font-size: 18px;
+  }
+
+
+  .card {
+
+    width: calc(25% - 4px);
+
+    height: calc(29.333% - 3px);
+
+    margin: 2px;
+  }
+
+
+  .card-front,
+  .card-back {
+
+    padding: 3px;
+  }
+
+
+  .victory-modal {
+
+    padding: 25px 15px 20px;
+  }
+
+
+  .trophy {
+
+    font-size: 48px;
+  }
+
+
+  .victory-modal h2 {
+
+    font-size: 30px;
+  }
+}
